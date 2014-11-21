@@ -27,7 +27,8 @@ int main(int argc, char* argv[])
 {
 	char line[100] = {0};
 	string tmp;
-	string logfile = "DoU_AutoTest_report.txt";
+	//string logfile = "DoU_AutoTest_report.txt";
+	string logfile = argv[1];
 	int stage = 0, error_count = 0, abnormal_count = 0;
 
 	// create DoU_AutoTest_report.html
@@ -168,7 +169,7 @@ int main(int argc, char* argv[])
 					{
 						if(!tmp.compare("Kernel wakelocks") && !first) WriteToHere << "</table>\n";
 						WriteToHere << "<b>" << tmp << "</b><br/>\n<table>\n"
-									<< "<tr id=\"tilte\">\n<td>Application<br/></td>\n<td>time<br/></td>\n</tr>\n";
+									<< "<tr id=\"tilte\">\n<td>Application<br/></td>\n<td>Time<br/></td>\n</tr>\n";
 						first = 0;
 					}
 					else
