@@ -110,6 +110,13 @@ int main(int argc, char* argv[])
 					if(!tmp.compare(0, tmp.find(','), "Charge full")) WriteToHere << "<td>" << tmp.substr(tmp.find(',')+1, tmp.length()-1) << "</td>\n";
 					if(!tmp.compare(0, tmp.find(','), "Charge now")) WriteToHere << "<td>" << tmp.substr(tmp.find(',')+1, tmp.length()-1) << "</td>\n</tr>\n";
 					if(!tmp.compare(0, tmp.find(','), "End")) WriteToHere << "<td>" << tmp << "</td>\n";
+					if(!tmp.compare(0, tmp.find(','), "Consumption"))
+					{
+						WriteToHere << "<td>" << tmp.substr(0, tmp.find(',')) << "</td>\n"
+									<< "<td>" << tmp.substr(tmp.find(',')+1, tmp.rfind(',') - tmp.find(',') - 1) << "</td>\n"
+									<< "<td></td>\n"
+									<< "<td>" << tmp.substr(tmp.rfind(',')+1, tmp.length()) << "</td>\n";
+					}
 				}
 				else
 				{
