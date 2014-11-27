@@ -29,6 +29,7 @@ int main(int argc, char* argv[])
 	string tmp;
 	//string logfile = "DoU_AutoTest_report.txt";
 	string logfile = argv[1];
+	string date = argv[2];
 	int stage = 0, error_count = 0, abnormal_count = 0;
 
 	// create DoU_AutoTest_report.html
@@ -85,7 +86,10 @@ int main(int argc, char* argv[])
 					{
 						WriteToHere << "AutoTest Error: " << error_count << "<br/>\n"
 									// abnormal_count -1 to remove start of battery status
-									<< "Abnormal Power Consumption: " << abnormal_count -1 << "<br/>\n"
+									<< "Abnormal Power Consumption: " << abnormal_count - 1 << "<br/>\n"
+									// links
+									<< "<a href=\"http://10.57.42.11/DoULogs/" << date << "_logs.zip\">Download detail</a><br/>\n"
+									<< "<a href=\"pwm://com.fihtdc.power?http://10.57.42.11/PowerLogs/" << date << "_PowerLog.zip&http://10.57.52.46:80/FOTA/pwm/json.aspx\">Start Power Parser Tool</a><br/>\n"
 									<< "</div>\n";
 						stage++;
 						break;
