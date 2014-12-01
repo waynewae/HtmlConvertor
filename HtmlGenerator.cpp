@@ -107,7 +107,7 @@ int main(int argc, char* argv[])
 			while(log.getline(line, sizeof(line), '\n'))
 			{
 				tmp.assign(line);
-				if(tmp.compare("Error of AutoTest script"))
+				if(tmp.compare("Capacity Information"))
 				{
 					if(!tmp.compare(0, tmp.find(','), "Start")) WriteToHere << "<tr>\n<td>" << tmp << "<br/></td>\n";
 					if(!tmp.compare(0, tmp.find(','), "Capacity")) WriteToHere << "<td>" << tmp.substr(tmp.find(',')+1, tmp.length()-tmp.find(',')) << "</td>\n";
@@ -131,8 +131,42 @@ int main(int argc, char* argv[])
 			}
 		}
 
-		//write Error of AutoTest script
+		//write Capacity information
 		if(stage == 2)
+		{
+			WriteToHere << "<h2>Capacity Information</h2>\n<div>\n<table id=\"battery\">\n"
+						<< "<tr>\n<td>Time</td><td>Capacity(%)</td></tr>";
+			while(log.getline(line, sizeof(line), '\n'))
+			{
+				tmp.assign(line);
+				if(tmp.compare("Error of AutoTest script"))
+				{
+					string year = tmp.substr(0, 4);
+					tmp.erase(0, 4);
+					string month = tmp.substr(0, 2);
+					tmp.erase(0, 2);
+					string day = tmp.substr(0, 2);
+					tmp.erase(0, 2);
+					string hour = tmp.substr(0, 2);
+					tmp.erase(0, 2);
+					string min = tmp.substr(0, 2);
+					tmp.erase(0, 2);
+					string cap = tmp.substr(tmp.find(',') + 1, tmp.length() - tmp.find(','));
+					WriteToHere << "<tr>\n"
+								<< "<td>" << year << '/' << month << '/' << day << ' ' << hour << ':' << min << "</td>"
+								<< "<td>" << cap << "</td>\n</tr>\n";
+				}
+				else
+				{
+					WriteToHere << "</table>\n</div>\n";
+					stage++;
+					break;
+				}
+			}
+		}
+
+		//write Error of AutoTest script
+		if(stage == 3)
 		{
 			WriteToHere << "<h2>AutoTest Error</h2>\n<div>\n";
 			if(error_count)
@@ -157,7 +191,7 @@ int main(int argc, char* argv[])
 		}
 
 		// write wakelock info
-		if(stage == 3)
+		if(stage == 4)
 		{
 			bool first = 1;
 			WriteToHere << "<h2>Abnormal Power Consumption</h2>\n<div>\n";
