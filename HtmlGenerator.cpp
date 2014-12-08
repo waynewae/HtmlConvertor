@@ -195,7 +195,7 @@ int main(int argc, char* argv[])
 		{
 			bool first = 1;
 			WriteToHere << "<h2>Abnormal Power Consumption</h2>\n<div>\n";
-			if(error_count)
+			if(abnormal_count)
 			{
 				while(log.getline(line, sizeof(line), '\n'))
 				{
